@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRIME LEASE</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:Arial, sans-serif;
+background:#050505;
+color:white;
+overflow-x:hidden;
+}
+
+.container{
+max-width:1400px;
+margin:auto;
+padding:40px 20px;
+}
+
+.hero{
+text-align:center;
+padding:80px 20px;
+background:linear-gradient(180deg,#111,#050505);
+border:1px solid #222;
+border-radius:40px;
+}
+
+.logo{
+width:260px;
+border-radius:30px;
+margin-bottom:30px;
+box-shadow:0 0 60px rgba(255,255,255,0.08);
+}
+
+h1{
+font-size:72px;
+font-weight:900;
+letter-spacing:10px;
+margin-bottom:20px;
+}
+
+.subtitle{
+font-size:24px;
+color:#aaa;
+max-width:900px;
+margin:auto;
+line-height:1.6;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:30px;
+margin-top:40px;
+}
+
+.card{
+background:#111;
+border:1px solid #222;
+border-radius:35px;
+padding:35px;
+}
+
+.card h2{
+font-size:38px;
+margin-bottom:30px;
+}
+
+input{
+width:100%;
+padding:18px;
+background:black;
+border:1px solid #333;
+border-radius:20px;
+color:white;
+font-size:24px;
+margin-top:10px;
+margin-bottom:25px;
+}
+
+.label{
+color:#888;
+font-size:14px;
+text-transform:uppercase;
+letter-spacing:2px;
+}
+
+.result{
+font-size:40px;
+font-weight:900;
+margin-top:8px;
+}
+
+.green{
+color:#00ff99;
+}
+
+.blue{
+color:#4da3ff;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+}
+
+th,td{
+padding:20px;
+border-bottom:1px solid #222;
+text-align:left;
+}
+
+th{
+color:#777;
+}
+
+.section{
+margin-top:40px;
+}
+
+.info-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:25px;
+margin-top:40px;
+}
+
+.info-card{
+background:#111;
+padding:30px;
+border-radius:30px;
+border:1px solid #222;
+}
+
+.info-card h3{
+font-size:26px;
+margin-top:15px;
+margin-bottom:10px;
+}
+
+.info-card p{
+color:#999;
+line-height:1.6;
+}
+
+.cta{
+margin-top:50px;
+text-align:center;
+padding:60px 30px;
+background:linear-gradient(90deg,#0d1117,#050505,#0d1117);
+border:1px solid #222;
+border-radius:40px;
+}
+
+.cta h2{
+font-size:60px;
+margin-bottom:20px;
+}
+
+.vk-btn{
+display:inline-block;
+margin-top:30px;
+padding:20px 40px;
+background:white;
+color:black;
+text-decoration:none;
+font-size:24px;
+font-weight:bold;
+border-radius:20px;
+}
+
+@media(max-width:900px){
+.grid{
+grid-template-columns:1fr;
+}
+
+.info-grid{
+grid-template-columns:1fr;
+}
+
+h1{
+font-size:42px;
+}
+
+.cta h2{
+font-size:40px;
+}
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="hero">
+<img src="image.png" class="logo">
+
+<h1>PRIME LEASE</h1>
+
+<div class="subtitle">
+Лизинг нового поколения. Получайте автомобиль сегодня — платите постепенно, честно и без скрытых условий.
+</div>
+</div>
+
+<div class="grid">
+
+<div class="card">
+<h2>Калькулятор</h2>
+
+<div class="label">Стоимость автомобиля</div>
+<input type="number" id="price" value="1000000" oninput="calculate()">
+
+<div class="label">Уже погашено</div>
+<input type="number" id="paid" value="0" oninput="calculate()">
+</div>
+
+<div class="card">
+<h2>Результат</h2>
+
+<div class="label">Первый взнос</div>
+<div class="result" id="first"></div>
+
+<div class="label">Остаток долга</div>
+<div class="result" id="debt"></div>
+
+<div class="label">Категория</div>
+<div class="result blue" id="category"></div>
+
+<div class="label">Ставка в день</div>
+<div class="result" id="rate"></div>
+
+<div class="label">Проценты в день</div>
+<div class="result green" id="daily"></div>
+
+<div class="label">Проценты в неделю</div>
+<div class="result green" id="weekly"></div>
+</div>
+
+</div>
+
+<div class="section card">
+<h2>Процентные ставки</h2>
+
+<table>
+<tr>
+<th>Категория</th>
+<th>Стоимость</th>
+<th>% в день</th>
+</tr>
+
+<tr><td>🚗 Eco</td><td>до 100 000</td><td>10%</td></tr>
+<tr><td>🚙 Standart</td><td>100 000 – 1 млн</td><td>7.5%</td></tr>
+<tr><td>🚘 Business</td><td>1 – 5 млн</td><td>5%</td></tr>
+<tr><td>🏎 Premium</td><td>5 – 10 млн</td><td>2.5%</td></tr>
+<tr><td>🏁 Elite</td><td>10 – 50 млн</td><td>0.75%</td></tr>
+<tr><td>👑 Exclusive</td><td>от 50 млн</td><td>0.4%</td></tr>
+</table>
+</div>
+
+<div class="info-grid">
+<div class="info-card">
+<div style="font-size:50px">💰</div>
+<h3>25% первый взнос</h3>
+<p>Получаете автомобиль сразу после оформления сделки.</p>
+</div>
+
+<div class="info-card">
+<div style="font-size:50px">📅</div>
+<h3>Оплата процентов</h3>
+<p>Проценты оплачиваются каждое воскресенье.</p>
+</div>
+
+<div class="info-card">
+<div style="font-size:50px">🔁</div>
+<h3>Досрочный выкуп</h3>
+<p>Без штрафов и скрытых комиссий.</p>
+</div>
+</div>
+
+<div class="cta">
+<h2>DRIVE NOW</h2>
+
+<p style="color:#999;font-size:22px;max-width:900px;margin:auto;line-height:1.7;">
+Никаких скрытых платежей. Никакой кабалы. Только честный лизинг и автомобили, которые вы хотите уже сегодня.
+</p>
+
+<a class="vk-btn" href="https://vk.com/prime_lease">
+VK: prime_lease
+</a>
+</div>
+
+</div>
+
+<script>
+
+function format(num){
+return new Intl.NumberFormat('ru-RU').format(Math.round(num))
+}
+
+function calculate(){
+
+let price = Number(document.getElementById('price').value)
+let paid = Number(document.getElementById('paid').value)
+
+let first = price * 0.25
+let debt = price - first - paid
+
+if(debt < 0){
+debt = 0
+}
+
+let rate = 0
+let category = ''
+
+if(price <= 100000){
+rate = 10
+category = 'Eco'
+}
+else if(price <= 1000000){
+rate = 7.5
+category = 'Standart'
+}
+else if(price <= 5000000){
+rate = 5
+category = 'Business'
+}
+else if(price <= 10000000){
+rate = 2.5
+category = 'Premium'
+}
+else if(price <= 50000000){
+rate = 0.75
+category = 'Elite'
+}
+else{
+rate = 0.4
+category = 'Exclusive'
+}
+
+let daily = debt * (rate / 100)
+let weekly = daily * 7
+
+document.getElementById('first').innerText = format(first) + ' ₽'
+document.getElementById('debt').innerText = format(debt) + ' ₽'
+document.getElementById('category').innerText = category
+document.getElementById('rate').innerText = rate + '%'
+document.getElementById('daily').innerText = format(daily) + ' ₽'
+document.getElementById('weekly').innerText = format(weekly) + ' ₽'
+}
+
+calculate()
+
+</script>
+
+</body>
+</html>
